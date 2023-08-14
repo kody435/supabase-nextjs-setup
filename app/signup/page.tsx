@@ -49,13 +49,16 @@ export default function Login() {
           placeholder="password"
           required
         />
-        <button className="bg-green-700 rounded px-4 py-2 text-white mb-2">
-          Sign In
+        <button
+          formAction="/auth/sign-up"
+          className="border bg-green-700 rounded px-4 py-2 text-white mb-2"
+        >
+          Signup
         </button>
         <h3>
-          Don't have an account?{" "}
-          <Link href={"/signup"} className="text-yellow-400">
-            Signup ↗
+          Already have an account?{" "}
+          <Link href={"/login"} className="text-yellow-400">
+            Login ↗
           </Link>
         </h3>
         <Messages />
