@@ -1,11 +1,11 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
-export default async function page() {
-  const supabase = createServerComponentClient({ cookies });
+export async function GET() {
+  const supabase = createRouteHandlerClient({cookies});
 
   const {
     data: { user },
@@ -19,7 +19,7 @@ export default async function page() {
   console.log("Teacher: " + checkTeacher.data.teacher);
 
   if (checkTeacher.data.teacher === false) {
-    redirect("/student");
+    redirect("/s/dashboard");
   }
 
   if (checkTeacher.data.teacher === true) {

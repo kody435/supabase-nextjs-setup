@@ -29,8 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/CheckTeach/page.jsx",
-    "app/auth/role/page.js",
-    "middleware.js"
+    "app/auth/role/route.js",
+    "middleware.ts"
   ],
   "exclude": ["node_modules"]
 }
