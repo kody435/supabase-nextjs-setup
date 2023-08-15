@@ -26,10 +26,10 @@ export async function middleware(req) {
 
     if (data.teacher === true) {
       console.log("\n\n\nTeacher found, redirecting to teacher\n\n\n");
-      return NextResponse.redirect(new URL("/teacher", req.nextUrl));
+      return NextResponse.redirect(new URL("/t/dashboard", req.nextUrl));
     } else if (data.teacher === false) {
       console.log("\n\n\nStudent found, redirecting to student\n\n\n");
-      return NextResponse.redirect(new URL("/student", req.nextUrl));
+      return NextResponse.redirect(new URL("/s/dashboard", req.nextUrl));
     }
   }
 

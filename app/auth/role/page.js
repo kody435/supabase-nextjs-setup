@@ -23,7 +23,7 @@ export default async function page() {
   }
 
   if (checkTeacher.data.teacher === true) {
-    redirect("/teacher");
+    redirect("/t/dashboard");
   }
 
   return res;
