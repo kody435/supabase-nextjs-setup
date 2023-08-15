@@ -5,13 +5,37 @@ import { NextRequest } from "next/server";
 
 export async function middleware(req) {
   const res = NextResponse.next();
-
-  // Create a Supabase client configured to use cookies
   const supabase = createMiddlewareClient({ req, res });
 
-  // Refresh session if expired - required for Server Components
-  // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-  await supabase.auth.getSession();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  return res;
+  if (!user) {
+    console.log("No user found, redirecting to login");
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+  else if (user) {
+    console.log("User found, redirecting to role");
+    // return NextResponse.redirect(new URL("/auth/role", req.nextUrl));
+
+    const { data } = await supabase
+      .from("profiles")
+      .select("teacher")
+      .eq("id", user?.id)
+      .single();
+
+    if (data.teacher === true) {
+      console.log("\n\n\nTeacher found, redirecting to teacher\n\n\n");
+      return NextResponse.redirect(new URL("/teacher", req.nextUrl));
+    } else if (data.teacher === false) {
+      console.log("\n\n\nStudent found, redirecting to student\n\n\n");
+      return NextResponse.redirect(new URL("/student", req.nextUrl));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: "/"
 }

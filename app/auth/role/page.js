@@ -11,7 +11,6 @@ export default async function page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-
   const checkTeacher = await supabase
     .from("profiles")
     .select("teacher")
