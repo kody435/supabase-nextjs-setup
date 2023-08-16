@@ -1,4 +1,4 @@
-import UpdateComp from "../../components/Student/UpdateComp";
+import UpdatesComp from "../../components/Student/UpdatesComp";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
@@ -16,7 +16,7 @@ export default async function StudentDash({ user }) {
       {/* Update */}
       <div className="flex flex-col gap-5">
         <h3 className="text-xl font-bold">Updates</h3>
-        <UpdateComp updates={data} />
+        <UpdatesComp updates={data} />
       </div>
     </div>
   );
