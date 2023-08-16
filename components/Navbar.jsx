@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import LogoutButton from "./LogoutButton";
 import { usePathname } from "next/navigation";
@@ -11,8 +11,9 @@ export default function Navbar() {
         <span className="text-5xl font-extrabold">L</span>
         <span className="underline mt-3 font-normal">ucidian</span>
       </h2>
-      
-      {router === "/login" || '/signup' ? (<div></div>) :(<LogoutButton />) }
+
+      {router === "/dashboard" && <LogoutButton />}
+      {/* <LogoutButton /> */}
     </div>
   );
 }

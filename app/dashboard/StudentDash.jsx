@@ -6,7 +6,6 @@ export default async function StudentDash({ user }) {
   const supabase = createServerComponentClient({ cookies });
 
   const { data } = await supabase.from("updates").select(`update_id, text`);
-  const updates = data
 
   return (
     <div className="p-5">
@@ -17,7 +16,7 @@ export default async function StudentDash({ user }) {
       {/* Update */}
       <div className="flex flex-col gap-5">
         <h3 className="text-xl font-bold">Updates</h3>
-        <UpdateComp updates={updates} />
+        <UpdateComp updates={data} />
       </div>
     </div>
   );
