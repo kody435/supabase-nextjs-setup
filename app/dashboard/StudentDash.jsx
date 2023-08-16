@@ -1,16 +1,24 @@
-import LogoutButton from "@/components/LogoutButton";
+import UpdateComp from "../../components/Student/UpdateComp";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export default function StudentDash({user}) {
+export default async function StudentDash({ user }) {
+  const supabase = createServerComponentClient({cookies})
+    
+  const { data } = await supabase.from('updates').select('text')
+  const updates = data.map((update) => update.text)
+  
   return (
-    <div>
-      <div className="flex flex-row justify-between p-10 items-center">
-        <h3>Welcome {user.email}!</h3>
-        <div className="bg-black text-white px-6 py-2.5 rounded-2xl">
-          <LogoutButton />
-        </div>
+    <div className="p-5">
+      <div className="flex flex-row justify-between items-center pb-10">
+        <h3 className="">Welcome {user.email}!</h3>
       </div>
 
-      <div></div>
+      {/* Update */}
+      <div>
+        <h3 className="text-xl font-bold">Update</h3>
+        <UpdateComp updates={updates}  />
+      </div>
     </div>
   );
 }

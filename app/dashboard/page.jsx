@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import TeacherDash from './TeacherDash'
-import StudentDash from './StudentDash'
+import TeacherDash from "./TeacherDash";
+import StudentDash from "./StudentDash";
 
 export const dynamic = "force-dynamic";
 
@@ -18,8 +18,8 @@ export default async function page() {
     .eq("id", user?.id)
     .single();
 
-  console.log("\n\n\nUser: " + user.id)
-  console.log("\nTeacher: " + teacher.data.teacher + "\n\n\n");
+  console.log("\n\n\nUser: " + user.id);
+  console.log("\nTeacher: " + teacher.data.teacher + "\n");
 
   return (
     <div>
