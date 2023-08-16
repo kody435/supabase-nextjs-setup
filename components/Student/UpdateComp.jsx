@@ -1,17 +1,14 @@
-
-
 export default function UpdateComp({ updates }) {
-    
-    console.log(updates)
-
+  console.log('updates: ')
+  console.log(updates);
 
   return (
-      <div>
-          {updates.map((update) => (
-              <div>   
-                  <h1>{update}</h1>
-                  </div>
-         ))} 
+    <div className="border-x">
+      {updates.map((update, id) => (
+        <div key={id} className="border-y p-3">
+          <h3>{update.text}</h3>
+        </div>
+      ))}
     </div>
-  )
+  );
 }

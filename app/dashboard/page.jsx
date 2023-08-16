@@ -19,7 +19,7 @@ export default async function page() {
     .single();
 
   console.log("\n\n\nUser: " + user.id);
-  console.log("\nTeacher: " + teacher.data.teacher + "\n");
+  console.log("Teacher: " + teacher.data.teacher + "\n");
 
   return (
     <div>

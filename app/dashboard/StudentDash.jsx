@@ -3,11 +3,11 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export default async function StudentDash({ user }) {
-  const supabase = createServerComponentClient({cookies})
-    
-  const { data } = await supabase.from('updates').select('text')
-  const updates = data.map((update) => update.text)
-  
+  const supabase = createServerComponentClient({ cookies });
+
+  const { data } = await supabase.from("updates").select(`update_id, text`);
+  const updates = data
+
   return (
     <div className="p-5">
       <div className="flex flex-row justify-between items-center pb-10">
@@ -15,9 +15,9 @@ export default async function StudentDash({ user }) {
       </div>
 
       {/* Update */}
-      <div>
-        <h3 className="text-xl font-bold">Update</h3>
-        <UpdateComp updates={updates}  />
+      <div className="flex flex-col gap-5">
+        <h3 className="text-xl font-bold">Updates</h3>
+        <UpdateComp updates={updates} />
       </div>
     </div>
   );
