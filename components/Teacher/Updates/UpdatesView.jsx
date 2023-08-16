@@ -4,6 +4,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import UpdatesEdit from "./UpdatesEdit";
+
 export default function UpdateComp({ updates, user }) {
   const router = useRouter();
   const supabase = createClientComponentClient();
@@ -36,17 +38,20 @@ export default function UpdateComp({ updates, user }) {
         >
           <h3>{update.text}</h3>
 
-          <button
-            className="border-2 px-2 rounded-lg border-black"
-            onClick={async () => {
-              await supabase
-                .from("updates")
-                .delete()
-                .eq(`update_id`, update.update_id);
-            }}
-          >
-            -
-          </button>
+          <div className="flex gap-5 flex-row">
+            <UpdatesEdit updateText={update.text} updateId={update.update_id} />
+            <button
+              className="border-2 px-4 rounded-lg border-black"
+              onClick={async () => {
+                await supabase
+                  .from("updates")
+                  .delete()
+                  .eq(`update_id`, update.update_id);
+              }}
+            >
+              -
+            </button>
+          </div>
         </div>
       ))}
     </div>

@@ -1,7 +1,8 @@
-import UpdatesComp from "@/components/Teacher/UpdatesComp";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import UpdatesAdd from "@/components/Teacher/UpdatesAdd";
+
+import UpdatesView from "@/components/Teacher/Updates/UpdatesView";
+import UpdatesAdd from "@/components/Teacher/Updates/UpdatesAdd";
 
 export default async function TeacherDash({ user }) {
   const supabase = createServerComponentClient({ cookies });
@@ -20,7 +21,9 @@ export default async function TeacherDash({ user }) {
           <h3 className="text-xl font-bold">Updates</h3>
           <UpdatesAdd user={user} />
         </div>
-        <UpdatesComp updates={data} user={user} />
+        <div>
+          <UpdatesView updates={data} user={user} />
+        </div>
       </div>
     </div>
   );
