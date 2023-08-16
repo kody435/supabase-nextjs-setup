@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   } else if (user) {
     console.log("User found, redirecting to dashboard");
-    return NextResponse.rewrite(new URL("/dashboard", req.nextUrl));
+    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
 
   return NextResponse.next();
