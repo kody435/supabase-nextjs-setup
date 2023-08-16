@@ -57,7 +57,6 @@ function UpdatesEdit({ updateText, updateId }) {
                       .eq( `update_id`, updateId );
 
                   setIsOpen(false);
-                  setNewUpdate("");
                 }}
               >
                 Update
