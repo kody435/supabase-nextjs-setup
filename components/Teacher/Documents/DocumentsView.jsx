@@ -1,12 +1,11 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import UpdatesEdit from "./UpdatesEdit";
-
-export default function UpdateView({ updates }) {
+export default function DocumentsView({ docs }) {
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -15,7 +14,7 @@ export default function UpdateView({ updates }) {
       .channel("custom-all-channel")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "updates" },
+        { event: "*", schema: "public", table: "docs" },
         (payload) => {
           router.refresh();
         },
@@ -27,32 +26,28 @@ export default function UpdateView({ updates }) {
     };
   });
 
-  console.log(updates);
-
   return (
     <div className="border rounded-t-xl">
-      {updates.map((update) => (
-        <div
-          key={update.update_id}
+      {docs.map((doc) => (
+        <Link
+          href={doc.url}
+          key={doc.id}
           className="border-b p-3 flex flex-row justify-between items-center"
         >
-          <h3>{update.text}</h3>
+          <h3>{doc.name}</h3>
 
           <div className="flex gap-5 flex-row">
-            <UpdatesEdit updateText={update.text} updateId={update.update_id} />
             <button
               className="border-2 px-4 rounded-lg border-black"
               onClick={async () => {
-                await supabase
-                  .from("updates")
-                  .delete()
-                  .eq(`update_id`, update.update_id);
+                console.log("doc.id: " + doc.id);
+                await supabase.from("docs").delete().eq(`id`, doc.id);
               }}
             >
               -
             </button>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

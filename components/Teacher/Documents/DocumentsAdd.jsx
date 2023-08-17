@@ -7,11 +7,12 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
 
-export default function DocumentsAdd({user}) {
+export default function DocumentsAdd({ user }) {
   let [isOpen, setIsOpen] = useState(false);
   const [newDoc, setNewDoc] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [prog, setProg] = useState(0);
   const supabase = createClientComponentClient();
-  var reference = "";
 
   const uploadFiles = async (file) => {
     if (!file) return;
@@ -22,25 +23,18 @@ export default function DocumentsAdd({user}) {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        setProg(
+          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
         );
       },
       (error) => console.log(error),
       async () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            while (reference === "") {
-                reference = url;
-                console.log("waiting");
-                sleep(2000);
-            }
-            console.log(reference);
+          reference = url;
+          console.log("REFERENCE: \n" + reference);
         });
-    }
+      },
     );
-    await supabase.from("docs").insert([{ url: reference, teacher_id: user.id }]).select();
-    setIsOpen(false);
-    setNewDoc("");
   };
 
   return (
@@ -71,6 +65,7 @@ export default function DocumentsAdd({user}) {
                 className="border-2 border-black w-full p-2 mb-3"
                 onChange={(e) => {
                   setNewDoc(e.target.files[0]);
+                  setFileName(e.target.files[0].name);
                 }}
               />
               <button
@@ -79,7 +74,25 @@ export default function DocumentsAdd({user}) {
                   uploadFiles(newDoc);
                 }}
               >
-                Add doc
+                upload doc
+              </button>
+            </div>
+            <div className="flex justify-center items-center h-20 w-full flex-col gap-5">
+              <button
+                className="text-xl font-bold px-6 py-2 border-2 rounded-xl"
+                onClick={async () => {
+                  setIsOpen(false);
+                  setNewDoc("");
+                  const { data } = await supabase
+                    .from("docs")
+                    .insert([
+                      { url: reference, teacher_id: user.id, name: fileName },
+                    ])
+                    .select();
+                  console.log(data);
+                }}
+              >
+                Submit
               </button>
             </div>
           </Dialog.Panel>

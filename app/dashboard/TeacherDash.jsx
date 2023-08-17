@@ -4,11 +4,16 @@ import { cookies } from "next/headers";
 import UpdatesView from "@/components/Teacher/Updates/UpdatesView";
 import UpdatesAdd from "@/components/Teacher/Updates/UpdatesAdd";
 import DocumentsAdd from "@/components/Teacher/Documents/DocumentsAdd";
+import DocumentsView from "@/components/Teacher/Documents/DocumentsView";
 
 export default async function TeacherDash({ user }) {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data } = await supabase.from("updates").select(`update_id, text`);
+  const updatesData = await supabase.from("updates").select(`update_id, text`);
+  const documentsData = await supabase.from("docs").select(`id, url, name`);
+
+  console.log(updatesData.data);
+  console.log(documentsData.data);
 
   return (
     <div className="p-5">
@@ -23,7 +28,7 @@ export default async function TeacherDash({ user }) {
           <UpdatesAdd user={user} />
         </div>
         <div>
-          <UpdatesView updates={data} user={user} />
+          <UpdatesView updates={updatesData.data} user={user} />
         </div>
       </div>
 
@@ -34,7 +39,9 @@ export default async function TeacherDash({ user }) {
           <h3 className="text-xl font-bold">Documents</h3>
           <DocumentsAdd user={user} />
         </div>
-        <div></div>
+        <div>
+          <DocumentsView docs={documentsData.data} user={user} />
+        </div>
       </div>
     </div>
   );
