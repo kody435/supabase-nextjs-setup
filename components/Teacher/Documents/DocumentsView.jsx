@@ -42,8 +42,7 @@ export default function DocumentsView({ docs }) {
             <button
               className="border-2 px-4 rounded-lg border-black"
               onClick={async () => {
-                console.log("doc.id: " + doc.id);
-                await supabase.from("docs").delete().eq(`id`, doc.id);
+                  await supabase.from("docs").delete().eq(`id`, doc.id);
               }}
             >
               -
