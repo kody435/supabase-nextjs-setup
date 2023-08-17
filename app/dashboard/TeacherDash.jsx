@@ -12,7 +12,6 @@ export default async function TeacherDash({ user }) {
   const updatesData = await supabase.from("updates").select(`update_id, text`);
   const documentsData = await supabase.from("docs").select(`id, url, name`);
 
-  console.log(updatesData.data);
   console.log(documentsData.data);
 
   return (

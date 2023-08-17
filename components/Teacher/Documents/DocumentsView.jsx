@@ -29,12 +29,14 @@ export default function DocumentsView({ docs }) {
   return (
     <div className="border rounded-t-xl">
       {docs.map((doc) => (
-        <Link
+          <Link
+              
           href={doc.url}
           key={doc.id}
           className="border-b p-3 flex flex-row justify-between items-center"
         >
           <h3>{doc.name}</h3>
+          {doc.id}
 
           <div className="flex gap-5 flex-row">
             <button

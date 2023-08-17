@@ -29,10 +29,12 @@ export default function DocumentsAdd({ user }) {
       },
       (error) => console.log(error),
       async () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          reference = url;
-          console.log("REFERENCE: \n" + reference);
-        });
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        const { data } = await supabase
+          .from("docs")
+          .insert([{ url: url, teacher_id: user.id, name: fileName }])
+          .select();
+        console.log(data);
       },
     );
   };
@@ -75,24 +77,6 @@ export default function DocumentsAdd({ user }) {
                 }}
               >
                 upload doc
-              </button>
-            </div>
-            <div className="flex justify-center items-center h-20 w-full flex-col gap-5">
-              <button
-                className="text-xl font-bold px-6 py-2 border-2 rounded-xl"
-                onClick={async () => {
-                  setIsOpen(false);
-                  setNewDoc("");
-                  const { data } = await supabase
-                    .from("docs")
-                    .insert([
-                      { url: reference, teacher_id: user.id, name: fileName },
-                    ])
-                    .select();
-                  console.log(data);
-                }}
-              >
-                Submit
               </button>
             </div>
           </Dialog.Panel>

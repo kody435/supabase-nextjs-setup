@@ -27,8 +27,6 @@ export default function UpdateView({ updates }) {
     };
   });
 
-  console.log(updates);
-
   return (
     <div className="border rounded-t-xl">
       {updates.map((update) => (
