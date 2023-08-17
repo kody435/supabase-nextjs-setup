@@ -29,16 +29,16 @@ export default function DocumentsView({ docs }) {
   return (
     <div className="border rounded-t-xl">
       {docs.map((doc) => (
-          <Link
-              
-          href={doc.url}
+        <div
           key={doc.id}
           className="border-b p-3 flex flex-row justify-between items-center"
         >
           <h3>{doc.name}</h3>
-          {doc.id}
 
           <div className="flex gap-5 flex-row">
+            <Link href={doc.url} target="_blank" rel="noopener noreferrer">
+              🔗
+            </Link>
             <button
               className="border-2 px-4 rounded-lg border-black"
               onClick={async () => {
@@ -49,7 +49,7 @@ export default function DocumentsView({ docs }) {
               -
             </button>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

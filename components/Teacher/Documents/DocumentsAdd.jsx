@@ -29,14 +29,17 @@ export default function DocumentsAdd({ user }) {
       },
       (error) => console.log(error),
       async () => {
-        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        const fileURL = await getDownloadURL(uploadTask.snapshot.ref);
         const { data } = await supabase
           .from("docs")
-          .insert([{ url: url, teacher_id: user.id, name: fileName }])
+          .insert([{ url: fileURL, teacher_id: user.id, name: fileName }])
           .select();
         console.log(data);
+        setIsOpen(false);
+        setNewDoc("");
       },
     );
+      
   };
 
   return (
