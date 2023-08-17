@@ -10,6 +10,7 @@
     "@headlessui/react": "^1.7.16",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
+    "firebase": "^10.1.0",
     "next": "latest",
     "prettier": "^3.0.1",
     "react": "18.2.0",

@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 
 import UpdatesView from "@/components/Teacher/Updates/UpdatesView";
 import UpdatesAdd from "@/components/Teacher/Updates/UpdatesAdd";
+import DocumentsAdd from "@/components/Teacher/Documents/DocumentsAdd";
 
 export default async function TeacherDash({ user }) {
   const supabase = createServerComponentClient({ cookies });
@@ -24,6 +25,16 @@ export default async function TeacherDash({ user }) {
         <div>
           <UpdatesView updates={data} user={user} />
         </div>
+      </div>
+
+      <div className="my-10 border-t border-gray-400 border-2"></div>
+      {/* Documents */}
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-row items-center justify-between">
+          <h3 className="text-xl font-bold">Documents</h3>
+          <DocumentsAdd user={user} />
+        </div>
+        <div></div>
       </div>
     </div>
   );
