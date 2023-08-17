@@ -32,9 +32,9 @@ function UpdatesEdit({ updateText, updateId }) {
             </div>
 
             <div className="m-5">
+              <div className="text-xl font-bold pb-3">Edit</div>
               <textarea
-                              className="border-2 border-black w-full p-2 h-20"
-                              
+                className="border-2 border-black w-full p-2 h-20"
                 value={newUpdate}
                 onChange={(e) => {
                   setNewUpdate(e.target.value);
@@ -45,21 +45,21 @@ function UpdatesEdit({ updateText, updateId }) {
                 className="px-3 py-2 rounded-xl hover:bg-gray-300 font-bold"
                 onClick={async () => {
                   console.log(newUpdate);
-                //   await supabase
-                //     .from("updates")
-                //     .update({ text: newUpdate })
-                //     .eq(`update_id`, updateId)
-                    //     .select();
-                    
-                    await supabase
-                      .from("updates")
-                      .update({ text: newUpdate })
-                      .eq( `update_id`, updateId );
+                  //   await supabase
+                  //     .from("updates")
+                  //     .update({ text: newUpdate })
+                  //     .eq(`update_id`, updateId)
+                  //     .select();
+
+                  await supabase
+                    .from("updates")
+                    .update({ text: newUpdate })
+                    .eq(`update_id`, updateId);
 
                   setIsOpen(false);
                 }}
               >
-                Update
+                Submit
               </button>
             </div>
           </Dialog.Panel>
