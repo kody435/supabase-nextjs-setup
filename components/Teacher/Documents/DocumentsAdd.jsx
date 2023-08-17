@@ -34,7 +34,6 @@ export default function DocumentsAdd({ user }) {
           .from("docs")
           .insert([{ url: fileURL, teacher_id: user.id, name: fileName }])
           .select();
-        console.log(data);
         setIsOpen(false);
         setNewDoc("");
       },
